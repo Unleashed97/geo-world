@@ -27,11 +27,17 @@ const Title = styled(Link).attrs({
 `
 
 const ModeSwitcher = styled.div`
+    padding: 0.75rem;
     color: var(--colors-text);
     font-size: var(--fs-sm);
-    // font-weight: var(--fw-bold);
     text-transform: capitalize;
+
+    border-radius: var(--radii);
+
     cursor: pointer;
+
+    // transition: box-shadow 0.3s ease-in-out;
+    box-shadow: var(--shadow);
 `
 
 export const Header = () => {
@@ -53,7 +59,7 @@ export const Header = () => {
                             <IoMoonOutline size="14px" />
                         )}
                         <span style={{ marginLeft: '.75rem' }}>
-                            {theme} Theme
+                            {theme === 'light' ? 'dark' : 'light'} Theme
                         </span>
                     </ModeSwitcher>
                 </Wrapper>
