@@ -9,15 +9,28 @@ import { Home } from './pages/Home'
 import { Details } from './pages/Details'
 import { NotFound } from './pages/NotFound'
 
+import { ALL_COUNTRIES } from './config'
+
 function App() {
+    const [countries, setCountries] = useState([])
+
+    useEffect(() => {
+        if (!countries.length)
+            axios.get(ALL_COUNTRIES).then(({ data }) => setCountries(data))
+        // eslint-disable-next-line
+    }, [])
     return (
         <>
             <Header />
             <Main>
                 <Routes>
-                    <Route path="/" element={<Home />} />
+                    <Route
+                        exact
+                        path="/"
+                        element={<Home countries={countries} />}
+                    />
                     <Route path="/country/:name" element={<Details />} />
-                    <Route element={<NotFound />} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </Main>
         </>
