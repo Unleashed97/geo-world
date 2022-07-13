@@ -64,7 +64,9 @@ export const Home = ({ countries }) => {
                             {...countryInfo}
                             onClick={() =>
                                 navigate(`/country/${c.name.common}`, {
-                                    state: { name: c.name.common },
+                                    state: {
+                                        name: c.name.common,
+                                    },
                                 })
                             }
                         />
