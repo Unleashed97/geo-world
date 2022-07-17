@@ -1,42 +1,48 @@
 import React from 'react'
 import styled from 'styled-components'
-
 import { IoSearch } from 'react-icons/io5'
 
-const InputContainer = styled.label`
-    display: flex;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 1.5rem;
+const Wrapper = styled.div`
     padding: 1rem 2rem;
-
-    border-radius: var(--radii);
     box-shadow: var(--shadow);
+    border-radius: var(--radii);
     background-color: var(--colors-ui-base);
 
-    @media (min-width: 767px) {
-        margin-bottom: 0;
-        width: 280px;
+    display: flex;
+    align-items: center;
+`
+
+const Input = styled.input`
+    font-family: var(--family);
+    font-size: var(--fs-sm);
+    color: var(--colors-text);
+    margin-left: 1rem;
+    border: none;
+    background-color: var(--colors-ui-base);
+    outline: none;
+
+    &::placeholder {
+        font-size: var(--fs-sm);
     }
 `
 
-const Input = styled.input.attrs({
-    type: 'seach',
-    placeholder: 'Search for a country...',
-})`
-    margin-left: 2rem;
-    border: 0;
-    outline: 0;
+const SearchIcon = styled(IoSearch)`
     color: var(--colors-text);
-
-    background-color: var(--colors-ui-base);
+    font-size: var(--fs-sm);
 `
 
 export const Search = ({ search, setSearch }) => {
+    const handleSearch = (e) => {
+        setSearch(e.target.value)
+    }
     return (
-        <InputContainer>
-            <IoSearch />
-            <Input onChange={(e) => setSearch(e.target.value)} value={search} />
-        </InputContainer>
+        <Wrapper>
+            <SearchIcon />
+            <Input
+                placeholder="Search for a country..."
+                onChange={(e) => handleSearch(e)}
+                value={search}
+            />
+        </Wrapper>
     )
 }

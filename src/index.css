@@ -31,7 +31,7 @@ body[data-theme='dark'] {
 
 body[data-theme='light'] {
     --colors-text: hsl(200, 15%, 8%);
-    --colors-bg: hsl(0, 0, 98%);
+    --colors-bg: rgb(243, 241, 241);
     --colors-ui-base: hsl(0, 0%, 100%);
 
     --shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;

@@ -3,42 +3,59 @@ import Select from 'react-select'
 
 export const CustomSelect = styled(Select).attrs({
     styles: {
+        option: (provided, state) => ({
+            ...provided,
+            cursor: 'pointer',
+            color: 'var(--colors-text)',
+            backgroundColor:
+                state.isSelected || state.isFocused
+                    ? 'var(--colors-bg)'
+                    : 'var(--colors-ui-base)',
+        }),
         control: (provided) => ({
             ...provided,
             backgroundColor: 'var(--colors-ui-base)',
             color: 'var(--colors-text)',
-            borderRadius: 'var(--radii)',
-            padding: '0.25rem',
-            border: 'none',
-            boxShadow: 'var(--shadow)',
             height: '50px',
+
+            borderRadius: 'var(--radii)',
+            border: '0',
+            boxShadow: 'var(--shadow)',
+            padding: '0.25rem',
+            cursor: 'pointer',
+        }),
+        valueContainer: (provided) => ({
+            ...provided,
+            color: 'var(--colors-text)',
         }),
 
-        option: (provided, state) => ({
+        input: (provided) => ({
             ...provided,
-            cursor: 'pointer',
-            color: 'var(--color-text)',
-            backgroundColor: state.isSelected
-                ? 'var(--colors-bg)'
-                : 'var(--colors-ui-base)',
+            color: 'var(--colors-text)',
+            fontSize: 'var(--fs-sm)',
+            fontFamily: 'var(--family)',
+        }),
+
+        placeholder: (provided) => ({
+            ...provided,
+            fontFamily: 'var(--family)',
+            fontSize: 'var(--fs-md)',
+            fontWeight: 'var(--fw-light)',
+            color: 'var(--colors-text)',
+        }),
+
+        menu: (provided) => ({
+            ...provided,
+            backgroundColor: 'var(--colors-ui-base)',
+        }),
+
+        singleValue: (provided) => ({
+            ...provided,
+            color: 'var(--colors-text)',
         }),
     },
 })`
     width: 200px;
-    font-family: var(--family);
-    border: 0;
-    border-radius: var(--radii);
 
-    & > * {
-        box-shadow: var(--shadow);
-    }
-
-    & input {
-        padding-left: 0.25rem;
-    }
-
-    & * {
-        color: var(--colors-text) !important;
-        background-color: var(--colors-ui-base);
-    }
+    color: var(--colors-text) !important;
 `

@@ -2,32 +2,35 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Routes, Route } from 'react-router-dom'
 
-import { Header } from './components/Header.jsx'
-import { Main } from './components/Main.jsx'
+import { Header } from './components/Header'
+import { Main } from './components/Main'
 
-import { Home } from './pages/Home'
+import { HomePage } from './pages/HomePage'
 import { Details } from './pages/Details'
 import { NotFound } from './pages/NotFound'
 
 import { ALL_COUNTRIES } from './config'
 
-function App() {
+const App = () => {
     const [countries, setCountries] = useState([])
 
     useEffect(() => {
         if (!countries.length)
-            axios.get(ALL_COUNTRIES).then(({ data }) => setCountries(data))
-        // eslint-disable-next-line
+            axios
+                .get(ALL_COUNTRIES)
+                .then(({ data }) => setCountries(data))
+                .catch((error) => console.log(error))
     }, [])
+
     return (
         <>
             <Header />
+
             <Main>
                 <Routes>
                     <Route
-                        exact
                         path="/"
-                        element={<Home countries={countries} />}
+                        element={<HomePage countries={countries} />}
                     />
                     <Route path="/country/:name" element={<Details />} />
                     <Route path="*" element={<NotFound />} />

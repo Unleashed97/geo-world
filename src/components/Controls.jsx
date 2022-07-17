@@ -4,25 +4,20 @@ import styled from 'styled-components'
 import { Search } from './Search'
 import { CustomSelect } from './CustomSelect'
 
+const Wrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+`
+
 const options = [
     { value: 'Africa', label: 'Africa' },
     { value: 'America', label: 'America' },
     { value: 'Asia', label: 'Asia' },
-    { value: 'Europe', label: 'Europe' },
     { value: 'Oceania', label: 'Oceania' },
+    { value: 'Europe', label: 'Europe' },
 ]
-
-const Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-
-    @media (min-width: 767px) {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-`
 
 export const Controls = ({ onSearch }) => {
     const [search, setSearch] = useState('')
@@ -30,19 +25,20 @@ export const Controls = ({ onSearch }) => {
 
     useEffect(() => {
         const regionValue = region?.value || ''
+
         onSearch(search, regionValue)
     }, [search, region])
+
     return (
         <Wrapper>
             <Search search={search} setSearch={setSearch} />
-
             <CustomSelect
                 options={options}
-                placeholder="Filter by region"
-                isClearable
-                isSearchable={false}
                 value={region}
+                placeholder="Filter by region"
                 onChange={setRegion}
+                isSearchable={false}
+                isClearable
             />
         </Wrapper>
     )
