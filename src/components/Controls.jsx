@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { Component } from 'react'
 import styled from 'styled-components'
 
 import { Search } from './Search'
@@ -19,27 +19,47 @@ const options = [
     { value: 'Europe', label: 'Europe' },
 ]
 
-export const Controls = ({ onSearch }) => {
-    const [search, setSearch] = useState('')
-    const [region, setRegion] = useState('')
+export default class Controls extends Component {
+    constructor(props) {
+        super(props)
 
-    useEffect(() => {
-        const regionValue = region?.value || ''
+        this.state = {
+            search: '',
+            region: '',
+        }
+    }
 
-        onSearch(search, regionValue)
-    }, [search, region])
+    onSearch = (searchValue) => {
+        this.setState({ search: searchValue })
+    }
 
-    return (
-        <Wrapper>
-            <Search search={search} setSearch={setSearch} />
-            <CustomSelect
-                options={options}
-                value={region}
-                placeholder="Filter by region"
-                onChange={setRegion}
-                isSearchable={false}
-                isClearable
-            />
-        </Wrapper>
-    )
+    onSelect = (selectValue) => {
+        this.setState({ region: selectValue })
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (
+            prevState.search !== this.state.search ||
+            prevState.region !== this.state.region
+        ) {
+            const regionValue = this.state.region?.value || ''
+            this.props.handleControls(this.state.search, regionValue)
+        }
+    }
+
+    render() {
+        return (
+            <Wrapper>
+                <Search onSearch={this.onSearch} />
+                <CustomSelect
+                    options={options}
+                    placeholder="Filter by Region"
+                    isClearable
+                    isSearchable={false}
+                    value={this.state.region}
+                    onChange={this.onSelect}
+                />
+            </Wrapper>
+        )
+    }
 }

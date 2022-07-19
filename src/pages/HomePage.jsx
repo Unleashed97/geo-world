@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { Component } from 'react'
 import styled from 'styled-components'
 
 import { Card } from '../components/Card'
-import { Controls } from '../components/Controls'
+import Controls from '../components/Controls'
 
 const Wrapper = styled.div`
     display: flex;
@@ -25,12 +25,16 @@ const List = styled.div`
         gap: 4rem;
     }
 `
+export default class HomePage extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            filteredCountries: [],
+        }
+    }
 
-export const HomePage = ({ countries }) => {
-    const [filteredCountries, setFilteredCountries] = useState(countries)
-
-    const handleSearch = (search, region) => {
-        let data = [...countries]
+    handleControls = (search, region) => {
+        let data = [...this.props.countries]
 
         if (search) {
             data = data.filter((country) =>
@@ -44,28 +48,39 @@ export const HomePage = ({ countries }) => {
             data = data.filter((country) => country.region.includes(region))
         }
 
-        setFilteredCountries(data)
+        this.setState({ filteredCountries: data })
     }
 
-    useEffect(() => {
-        handleSearch()
-    }, [countries])
+    componentDidMount() {
+        this.setState({ filteredCountries: this.props.countries })
+    }
 
-    return (
-        <Wrapper>
-            <Controls onSearch={handleSearch} />
-            <List>
-                {filteredCountries.map((country) => {
-                    const countryProps = {
-                        name: country.name.common,
-                        image: country.flags.png,
-                        population: country.population.toLocaleString(),
-                        region: country.region,
-                        capital: country.capital,
-                    }
-                    return <Card key={country.name.common} {...countryProps} />
-                })}
-            </List>
-        </Wrapper>
-    )
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.countries !== this.props.countries) {
+            this.handleControls()
+        }
+    }
+
+    render() {
+        console.log(this.state.filteredCountries)
+        return (
+            <Wrapper>
+                <Controls handleControls={this.handleControls} />
+                <List>
+                    {this.state.filteredCountries.map((country) => {
+                        const countryInfo = {
+                            name: country.name.common,
+                            image: country.flags.png,
+                            population: country.population.toLocaleString(),
+                            region: country.region,
+                            capital: country.capital,
+                        }
+                        return (
+                            <Card key={country.name.common} {...countryInfo} />
+                        )
+                    })}
+                </List>
+            </Wrapper>
+        )
+    }
 }

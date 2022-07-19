@@ -31,16 +31,17 @@ const SearchIcon = styled(IoSearch)`
     font-size: var(--fs-sm);
 `
 
-export const Search = ({ search, setSearch }) => {
+export const Search = ({ search, onSearch }) => {
     const handleSearch = (e) => {
-        setSearch(e.target.value)
+        onSearch(e.target.value)
     }
+
     return (
         <Wrapper>
             <SearchIcon />
             <Input
                 placeholder="Search for a country..."
-                onChange={(e) => handleSearch(e)}
+                onChange={handleSearch}
                 value={search}
             />
         </Wrapper>
