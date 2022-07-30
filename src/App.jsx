@@ -13,6 +13,7 @@ import { ALL_COUNTRIES } from './config'
 
 const App = () => {
     const [countries, setCountries] = useState([])
+    const [isLoaded, setIsLoaded] = useState(false)
 
     useEffect(() => {
         if (!countries.length)
@@ -20,6 +21,8 @@ const App = () => {
                 .get(ALL_COUNTRIES)
                 .then(({ data }) => setCountries(data))
                 .catch((error) => console.log(error))
+
+        setIsLoaded(true)
     }, [])
 
     return (
@@ -30,7 +33,12 @@ const App = () => {
                 <Routes>
                     <Route
                         path="/"
-                        element={<HomePage countries={countries} />}
+                        element={
+                            <HomePage
+                                countries={countries}
+                                isLoaded={isLoaded}
+                            />
+                        }
                     />
                     <Route path="/country/:name" element={<Details />} />
                     <Route path="*" element={<NotFound />} />

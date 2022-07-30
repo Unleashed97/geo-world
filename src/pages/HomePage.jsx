@@ -3,10 +3,18 @@ import styled from 'styled-components'
 
 import { Card } from '../components/Card'
 import { Controls } from '../components/Controls'
+import { Preloader } from '../components/Preloader'
 
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
+`
+
+const PreloaderWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
 `
 
 const List = styled.div`
@@ -26,7 +34,7 @@ const List = styled.div`
     }
 `
 
-export const HomePage = ({ countries }) => {
+export const HomePage = ({ countries, isLoaded }) => {
     const [filteredCountries, setFilteredCountries] = useState(countries)
 
     const handleSearch = (search, region) => {
@@ -54,18 +62,27 @@ export const HomePage = ({ countries }) => {
     return (
         <Wrapper>
             <Controls onSearch={handleSearch} />
-            <List>
-                {filteredCountries.map((country) => {
-                    const countryProps = {
-                        name: country.name.common,
-                        image: country.flags.png,
-                        population: country.population.toLocaleString(),
-                        region: country.region,
-                        capital: country.capital,
-                    }
-                    return <Card key={country.name.common} {...countryProps} />
-                })}
-            </List>
+
+            {isLoaded ? (
+                <List>
+                    {filteredCountries.map((country) => {
+                        const countryProps = {
+                            name: country.name.common,
+                            image: country.flags.png,
+                            population: country.population.toLocaleString(),
+                            region: country.region,
+                            capital: country.capital,
+                        }
+                        return (
+                            <Card key={country.name.common} {...countryProps} />
+                        )
+                    })}
+                </List>
+            ) : (
+                <PreloaderWrapper>
+                    <Preloader />
+                </PreloaderWrapper>
+            )}
         </Wrapper>
     )
 }
