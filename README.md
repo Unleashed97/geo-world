@@ -9,5 +9,7 @@ It's the project that helps to find out some info about countries around the wor
 - Api (restcountries)
 
 ## How it looks
+![image](https://github.com//Unleashed97/blob/master/docs/countries-homepage.jpg?raw=true)
+
 
 ## How to test
