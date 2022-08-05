@@ -1,88 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
-import { Card } from '../components/Card'
-import { Controls } from '../components/Controls'
-import { Preloader } from '../components/Preloader'
+import { Controls } from '../features/controls/Controls'
+import CountriesList from '../features/countries/CountriesList'
 
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
 `
 
-const PreloaderWrapper = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 50vh;
-`
-
-const List = styled.div`
-    margin-top: 4rem;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-
-    @media (min-width: 767px) {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 3rem;
-    }
-
-    @media (min-width: 1024px) {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 4rem;
-    }
-`
-
-export const HomePage = ({ countries, isLoaded }) => {
-    const [filteredCountries, setFilteredCountries] = useState(countries)
-
-    const handleSearch = (search, region) => {
-        let data = [...countries]
-
-        if (search) {
-            data = data.filter((country) =>
-                country.name.common
-                    .toLowerCase()
-                    .includes(search.toLowerCase()),
-            )
-        }
-
-        if (region) {
-            data = data.filter((country) => country.region.includes(region))
-        }
-
-        setFilteredCountries(data)
-    }
-
-    useEffect(() => {
-        handleSearch()
-    }, [countries])
-
+export const HomePage = () => {
     return (
         <Wrapper>
-            <Controls onSearch={handleSearch} />
-
-            {isLoaded ? (
-                <List>
-                    {filteredCountries.map((country) => {
-                        const countryProps = {
-                            name: country.name.common,
-                            image: country.flags.png,
-                            population: country.population.toLocaleString(),
-                            region: country.region,
-                            capital: country.capital,
-                        }
-                        return (
-                            <Card key={country.name.common} {...countryProps} />
-                        )
-                    })}
-                </List>
-            ) : (
-                <PreloaderWrapper>
-                    <Preloader />
-                </PreloaderWrapper>
-            )}
+            <Controls />
+            <CountriesList />
         </Wrapper>
     )
 }

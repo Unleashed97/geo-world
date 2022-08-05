@@ -12,18 +12,18 @@ import { NotFound } from './pages/NotFound'
 import { ALL_COUNTRIES } from './config'
 
 const App = () => {
-    const [countries, setCountries] = useState([])
     const [isLoaded, setIsLoaded] = useState(false)
 
-    useEffect(() => {
-        if (!countries.length)
-            axios
-                .get(ALL_COUNTRIES)
-                .then(({ data }) => setCountries(data))
-                .catch((error) => console.log(error))
+    // const [countries, setCountries] = useState([])
+    // useEffect(() => {
+    //     if (!countries.length)
+    //         axios
+    //             .get(ALL_COUNTRIES)
+    //             .then(({ data }) => setCountries(data))
+    //             .catch((error) => console.log(error))
 
-        setIsLoaded(true)
-    }, [])
+    //     setIsLoaded(true)
+    // }, [])
 
     return (
         <>
@@ -35,7 +35,7 @@ const App = () => {
                         path="/"
                         element={
                             <HomePage
-                                countries={countries}
+                                // countries={countries}
                                 isLoaded={isLoaded}
                             />
                         }
