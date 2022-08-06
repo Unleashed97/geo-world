@@ -41,10 +41,13 @@ export const selectAllCountries = (state) => state.countries.items
 export const selectCountryByName = (state, name) =>
     state.countries.items.find((country) => country.name.common === name)
 
-export const selectNeighborsByCodes = (state, codes) =>
-    codes.map((code) =>
-        state.countries.items.find((country) => country.cca3 === code),
-    )
+export const selectNeighborsByCodes = (state, codes) => {
+    if (codes && codes.length) {
+        return codes.map((code) =>
+            state.countries.items.find((country) => country.cca3 === code),
+        )
+    }
+}
 
 export const selectFilteredCountries = (state, search, region) =>
     state.countries.items.filter(

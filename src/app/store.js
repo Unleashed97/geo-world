@@ -1,11 +1,20 @@
 import { configureStore } from '@reduxjs/toolkit'
+import storage from 'redux-persist/lib/storage'
+import { persistReducer } from 'redux-persist'
 
-import countriesReducer from '../features/countries/CountriesSlice'
-import controlsReducer from '../features/controls/ControlsSlice'
+import { rootReducer } from './rootReducer'
+
+const persistConfig = {
+    key: 'root',
+    storage,
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export default configureStore({
-    reducer: {
-        countries: countriesReducer,
-        controls: controlsReducer,
-    },
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: false,
+        }),
 })
