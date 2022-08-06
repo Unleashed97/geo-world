@@ -1,6 +1,6 @@
 # Geo world 
 
-It's the project that helps to find out some info about countries around the world.
+That's the project that helps to find out some info about countries around the world.
 
 ## Stack
 - React
@@ -17,3 +17,4 @@ It's the project that helps to find out some info about countries around the wor
 ![image](https://github.com/Unleashed97/geo-world/blob/master/docs/countries-homepage.jpg?raw=true)
 
 ## How to test
+You can check this app here - [demo link](https://unleashed97.github.io/geo-world/)
