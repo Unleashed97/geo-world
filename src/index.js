@@ -7,7 +7,6 @@ import { persistStore } from 'redux-persist'
 
 import store from './app/store'
 import App from './App'
-import { Preloader } from './components/Preloader'
 
 import './index.css'
 
@@ -18,7 +17,7 @@ root.render(
     <React.StrictMode>
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-                <BrowserRouter>
+                <BrowserRouter basename="/geo-world">
                     <App />
                 </BrowserRouter>
             </PersistGate>
