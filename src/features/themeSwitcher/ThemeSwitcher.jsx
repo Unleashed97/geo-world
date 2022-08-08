@@ -14,7 +14,10 @@ const ThemeSwitcherEl = styled.span`
     display: flex;
     align-items: center;
     padding: 0.75rem;
+    margin-left: 1rem;
+
     cursor: pointer;
+    white-space: nowrap;
 `
 const ThemeSwitcher = () => {
     const dispatch = useDispatch()

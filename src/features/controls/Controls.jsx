@@ -9,9 +9,14 @@ import { setSearch, setRegion } from './ControlsSlice'
 
 const Wrapper = styled.div`
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
     margin-top: 2rem;
+
+    @media (min-width: 767px) {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
 `
 
 const options = [

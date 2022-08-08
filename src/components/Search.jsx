@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { IoSearch } from 'react-icons/io5'
 
 const Wrapper = styled.div`
+    margin-bottom: 2rem;
     padding: 1rem 2rem;
     box-shadow: var(--shadow);
     border-radius: var(--radii);
@@ -10,6 +11,10 @@ const Wrapper = styled.div`
 
     display: flex;
     align-items: center;
+
+    @media (min-width: 767px) {
+        margin-bottom: 0;
+    }
 `
 
 const Input = styled.input`
